@@ -1,0 +1,46 @@
+{% extends "ecomapp/layouts/main.html" %}
+
+{% block content %}
+
+<div class="container py-3 ">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-light border-bottom border-dark">
+          <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+          <li class="breadcrumb-item"><a href="{%  url 'collections' %}">Collections</a></li>
+        </ol>
+      </nav>
+
+    <!-- <div class="py-3 bg-primary ">
+        <a class="text-white" href="{% url 'home' %}">Home /</a>
+        <a class="text-white" href="{% url 'collections' %}">Collections /</a>
+    </div> -->
+</div>
+
+
+<div class="container w-100">
+    <div class="row">
+        <div class="md-col-12 border border-primary ">
+            <h1 class="bg-primary text-white text-center">Categories Of Products</h1>
+            <hr>
+            <div class="row w-100">
+                {% for item in category  %}
+                <div class="col-md-3">
+                    <div class="card border border-secondary">
+                        <a href="{% url 'collectionsview' item.slug %}">
+                    
+                            <div class="card-body">
+                                <div class="category-image">
+                                    <img src="{{item.image.url}}" alt="" height="200px" width="200px" class="w-100">
+                                </div>
+                                <h4 class="text-center">{{item.name}}</h4>
+                            </div>
+                        </a>
+                    </div>
+                    </div>
+                  
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

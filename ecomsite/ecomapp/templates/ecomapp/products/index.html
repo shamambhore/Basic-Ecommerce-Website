@@ -1,0 +1,56 @@
+{% extends "ecomapp/layouts/main.html" %}
+
+{% block content %}
+
+
+<div class="container py-3 ">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-light border-bottom border-dark">
+          <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+          <li class="breadcrumb-item"><a href="{%  url 'collections' %}">Collections</a></li>
+          <li class="breadcrumb-item"><a href="{%  url 'collectionsview' category.slug %}">{{category.name}}</a></li>
+        </ol>
+    </nav>
+</div>
+
+<!-- <div class="py-3 bg-primary  ">
+    <div class="container ">
+        <a class="text-white" href="{% url 'home' %}">Home /</a>
+        <a class="text-white" href="{% url 'collections' %}">Collections /</a>
+        <a class="text-white" href="{% url 'collectionsview' category.slug %}">{{category.name}}</a>
+    </div>
+</div> -->
+
+<div class="container">
+    <div class="row">
+
+        <div class="md-col-12 shadow">
+            <h1>{{category.name}}</h1>
+            <hr>
+            <div class="row">
+                {% for item in products %}
+                <div class="col-md-3">
+                    <div class="card">
+                        <a href="{% url 'productview' item.category.slug item.slug %}">
+
+                            <div class="card-body">
+                                <div class="category-image">
+                                    <img src="{{item.product_image.url}}" alt="Product Image" class="w-100">
+                                </div>
+                                <h4 class="text-center">{{item.name}}</h4>
+                                <label class="float-start" for=""><b>Original Price:</b>
+                                    <s>{{item.original_price}}</s></label>
+                                <label class="float-end" for=""><b>Selling Price:</b>{{item.selling_price}}</label>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                {% endfor %}
+            </div>
+        </div>
+
+
+    </div>
+</div>
+{% endblock content %}

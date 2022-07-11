@@ -1,0 +1,63 @@
+{% extends "ecomapp/layouts/main.html" %}
+
+{% block content %}
+
+<div class="container py-3 ">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-light border-bottom border-dark">
+          <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+          <li class="breadcrumb-item"><a href="{%  url 'wishlist' %}">Wishlist</a></li>
+        </ol>
+    </nav>
+</div>
+
+<!-- <div class="py-3 bg-primary  ">
+    <div class="container ">
+        <a class="text-white" href="{% url 'home' %}">Home /</a>
+        <a class="text-white" href="{% url 'wishlist' %}">Wishlist</a>
+        
+    </div>
+</div> -->
+
+<div class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card shadow "">
+                    <div class="card-body wishlistdata">
+                        {% if wishlist %}
+                        {% for item in wishlist %}
+                          <div class="row product-data">
+                            <div class="col-md-2 my auto">
+                                <img src="{{item.product.product_image.url}}" alt="Image", height="80px",width="80px">
+                            </div>
+                            <div class="col-md-2 my-auto">
+                                <h5>{{item.product.name}}</h5>
+                            </div>
+                            <div class="col-md-2 my-auto">
+                                <h5>Rs. {{item.product.selling_price | stringformat:'d'}}</h5>
+                            </div>
+                            <div class="col-md-3 my-auto">
+                                <input type="hidden" class="prod_id" value="{{item.product_id}}">
+                                {% csrf_token %}
+                                <a href="{% url 'productview' item.product.category.slug item.product.slug %}" class="btn btn-primary">View Product</a>
+                            </div>
+                            <div class="col-md-2 my-auto">
+                                <button class="btn btn-danger delete-wishlist-item">Remove from wishlist</button>
+                            </div>
+                          </div>
+                        {% endfor %}
+                        {% else %}
+                            <h1>Wishlist is empty!!!!!!</h1>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock content %}

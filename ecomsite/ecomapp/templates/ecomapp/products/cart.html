@@ -1,0 +1,72 @@
+{% extends "ecomapp/layouts/main.html" %}
+
+{% block content %}
+
+
+<div class="container py-3 ">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-light border-bottom border-dark">
+          <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+          <li class="breadcrumb-item"><a href="{%  url 'cart' %}">Cart</a></li>
+        </ol>
+    </nav>
+</div>
+
+<!-- <div class="py-3 bg-primary  ">
+    <div class="container ">
+        <a class="text-white" href="{% url 'home' %}">Home /</a>
+        <a class="text-white" href="{% url 'cart' %}">Cart</a>
+        
+    </div>
+</div> -->
+
+<div class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card shadow cartdata ">
+                    <div class="card-body ">
+                        {% if cart %}
+                        {% for item in cart  %}
+                          <div class="row product-data product_data ">
+                            <div class="col-md-2 my auto">
+                                <img src="{{item.product.product_image.url}}" alt="Image", height="80px",width="80px">
+                            </div>
+                            <div class="col-md-2 my-auto">
+                                <h5>{{item.product.name}}</h5>
+                            </div>
+                            <div class="col-md-2 my-auto">
+                                <h5>Rs. {{item.product.selling_price | stringformat:'d'}}</h5>
+                            </div>
+                            <div class="col-md-3 my-auto">
+                                <input type="hidden" class="prod_id" value="{{item.product_id}}">
+                                {% csrf_token %}
+                                {% if item.product.quantity >= item.product_qty %}
+                                <label for="Quantity"><b>Quantity</b></label>
+                                <div class="input-group text-center mb-3" style="width:130px;">
+                                    <button class="input-group-text decrement-btn changequantity">-</button>
+                                    <input type="text" name="quantity" class="form-control qty-input text-center" value="{{item.product_qty}}">
+                                    <button class="input-group-text increment-btn changequantity">+</button>
+                                </div>
+                                {% else %}
+                                <h6 style="color:red;">Out of stock</h6>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-2 my-auto">
+                                <button class="btn btn-danger delete-cart-item">Remove</button>
+                            </div>
+                          </div>
+                        {% endfor %}
+                        <hr>
+                        <a href="{% url 'checkoutview' %}" class="btn bg-success float-end fw-bolder">Checkout</a>
+                        {% else %}
+                            <h1>You have not added any product to the cart!!!!!!</h1>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
